@@ -40,6 +40,39 @@ const thoughtSchema = new Schema({
     }
 );
 
+// virtual
+thoughtSchema.virtual('reactionCount').get(function () {
+    return this.reactions.length;
+});
+
 const Thought = model('thought', thoughtSchema);
+
+// seed thoughts and reactions here?
+Thought.create([
+    {
+        text: 'this is my first thought',
+        username: 'Clarky',
+        reactions: [
+            {
+                body: 'woah dude',
+                username: 'Faker'
+            }
+        ]
+    },
+    {
+        text: 'i need to figure out how to seed my data better',
+        username: 'Faker',
+        reactions: [
+            {
+                body: 'me tooo',
+                username: 'Clarky'
+            },
+            {
+                body: 'thanks man',
+                username: 'Faker'
+            }
+        ]
+    }
+])
 
 module.exports = Thought;
