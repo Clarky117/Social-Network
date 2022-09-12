@@ -1,7 +1,6 @@
 // const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-
 const router = require('express').Router();
 
 // user end points
@@ -20,8 +19,7 @@ router.get('/users', (req, res) => {
     })
 });
 
-// GET a single user by its _id and populated thought and
-//  friend data
+// GET a single user by its _id and populated thought and friend data
 router.get('/users/:userID', (req, res) => {
     User.findOne({_id: req.params.userID})
     .populate('thoughts')
@@ -211,7 +209,7 @@ router.put('/thoughts/:thoughtID', (req, res) => {
 });
 
 // delete thought
-router.delete('/thoughts/:thoughtID', (req, res) => {
+router.delete('/users/:userID/thoughts/:thoughtID', (req, res) => {
     Thought.findOneAndDelete(
         { _id: req.params.thoughtID }
     )
@@ -221,7 +219,7 @@ router.delete('/thoughts/:thoughtID', (req, res) => {
             return;
         }
         return User.findOneAndUpdate(
-            { _id: params.userId },
+            { _id: req.params.userID },
             { $pull: { thoughts: req.params.thoughtID} },
             { new: true }
         )
@@ -237,7 +235,49 @@ router.delete('/thoughts/:thoughtID', (req, res) => {
         res.status(400);
         console.log(err);
     })
-})
+});
 
+// reactions end points
+
+// create reaction
+router.post('/thoughts/:thoughtID/reactions', (req, res) => {
+    Thought.findOneAndUpdate(
+        { _id: req.params.thoughtID },
+        { $push: {reactions: req.body} },
+        { new: true, runValidators: true }
+    )
+    .populate('reactions')
+    .then((newReaction) => {
+        if(!newReaction) {
+            res.status(404).json({message: 'No thoughts with this id'});
+            return;
+        }
+        res.json(newReaction);
+    })
+    .catch((err) => {
+        res.status(400);
+        console.log(err);
+    })
+});
+
+// delete reaction
+router.delete('/thoughts/:thoughtID/reactions/:reactionID', (req, res) => {
+    Thought.findOneAndUpdate(
+        { _id: req.params.thoughtID },
+        { $pull: {reactions: { _id: req.params.reactionID}} },
+        { new: true }
+    )
+    .then((deletedReaction) => {
+        if(!deletedReaction) {
+            res.status(404).json({message: 'Try Again'});
+            return;
+        }
+        res.json(deletedReaction);
+    })
+    .catch((err) => {
+        res.status(400);
+        console.log(err);
+    })
+})
 
 module.exports = router;
