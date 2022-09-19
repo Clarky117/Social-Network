@@ -28,9 +28,11 @@ All routes for GET, POST, PUT and DELETE are tested through Insomnia and all acc
 # Installation
 
 - clone repository
+- open folder in VS Code
 - open terminal and run `npm i`
-- run `npm start` on the command line 
-- open insomnia at localhost:3001 to test api routes
+- run `npm run seed`
+- run `npm run start` on the command line 
+- open Insomnia at localhost:3001 to test api routes
 
 ## Visuals
 
@@ -43,4 +45,4 @@ Insomnia Requests
 ## Links to Repository and Deployed Video
 
 - Repository - [Clarky's Repo](https://github.com/Clarky117/Social-Network)
-- Live Video - [Social Network Back End](https://www.youtube.com/)
+- Live Video - [Social Network Back End](https://youtu.be/tSVVmA1S6N8)
