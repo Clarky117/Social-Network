@@ -8,12 +8,33 @@ connection.once('open', async () => {
 
     await User.create([
         { username: 'Clarky', email: 'clarky@fake.com', thoughts: [], friends: [] },
-        { username: 'Faker', email: 'faker@fake.com', thoughts: [], friends: [] }
-    ])
+        { username: 'Faker', email: 'faker@fake.com', thoughts: [], friends: [] },
+        { username: 'Antics', email: 'antics@fake.com', thoughts: [], friends: [] }
+    ]);
 
     await Thought.create([
         {
-            text: 'this is my first thought',
+            text: 'this is my seeded thought',
+            username: 'Clarky',
+            reactions: [
+                {
+                    body: 'does it work?',
+                    username: 'Faker'
+                }
+            ]
+        },
+        {
+            text: 'hope this works!',
+            username: 'Faker',
+            reactions: [
+                {
+                    body: 'me tooo',
+                    username: 'Clarky'
+                },
+            ]
+        },
+        {
+            text: 'this is a thought',
             username: 'Clarky',
             reactions: [
                 {
@@ -36,30 +57,7 @@ connection.once('open', async () => {
                 }
             ]
         }
-    ])
-
-    await Thought.create([
-        {
-            text: 'this is my seeded thought',
-            username: 'Clarky',
-            reactions: [
-                {
-                    body: 'does it work?',
-                    username: 'Faker'
-                }
-            ]
-        },
-        {
-            text: 'hope this works!',
-            username: 'Faker',
-            reactions: [
-                {
-                    body: 'me tooo',
-                    username: 'Clarky'
-                },
-            ]
-        }
-    ])
+    ]);
 
     process.exit(0);
 
