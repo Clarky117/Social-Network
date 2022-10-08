@@ -11,7 +11,7 @@
   
 ## Description
 
-In week 18 of the UWA coding bootcamp we have been task with building the back end components of a Social Network using NoSql.
+Built the back end components of a Social Network using NoSql.
 
 MongoDB is is a popular choice for many social networks due to be able to deal with large amount of data and its flexibility storing it in an unstructured environment. This sets the foundation to build a full stack application in future.
 
